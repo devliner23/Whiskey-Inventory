@@ -27,9 +27,10 @@ def whiskeydeets(current_user_token):
 
 @api.route('/whiskey', methods = ['GET'])
 @token_required
-def get_whiskey(current_user_token, id):
-    whiskey = Whiskey.query.get(id)
-    response = whiskey_schema.dump(whiskey)
+def get_whiskey(current_user_token):
+    a_user = current_user_token.token
+    whiskey = Whiskey.query.filter_by(whiskey_token=a_user).all()
+    response = whiskeys_schema.dump(whiskey)
     return jsonify(response)
 
 @api.route('/whiskey/<id>', methods = ['POST', 'PUT'])

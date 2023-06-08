@@ -56,12 +56,12 @@ class Whiskey(db.Model):
     whiskey_price = db.Column(db.Float(precision=2))
     whiskey_token = db.Column(db.String, db.ForeignKey('user.token'), unique=True)
 
-    def __init__(self, whiskey_name, whiskey_brand, whiskey_location, whiskey_pice, whiskey_token, id=''):
+    def __init__(self, whiskey_name, whiskey_brand, whiskey_location, whiskey_price, whiskey_token, id=''):
         self.id = self.set_id()
         self.whiskey_name = whiskey_name 
         self.whiskey_brand = whiskey_brand 
         self.whiskey_location = whiskey_location
-        self.whiskey_price = whiskey_pice
+        self.whiskey_price = whiskey_price
         self.whiskey_token = whiskey_token
 
     def __repr__(self):
