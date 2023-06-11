@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, render_template
 from helpers import token_required
 from models import db, User, Whiskey, whiskey_schema, whiskeys_schema
+import secrets
 
 api = Blueprint('api',__name__, url_prefix='/api')
 
@@ -17,7 +18,7 @@ def whiskeydeets(current_user_token):
     whiskey_price = request.json['whiskey_price']
     whiskey_token = current_user_token.token
 
-    whiskey = Whiskey(whiskey_name, whiskey_brand, whiskey_location, whiskey_price, whiskey_token)
+    whiskey = Whiskey(whiskey_name, whiskey_brand, whiskey_location, whiskey_price, whiskey_token = whiskey_token)
 
     db.session.add(whiskey)
     db.session.commit()
@@ -29,7 +30,7 @@ def whiskeydeets(current_user_token):
 @token_required
 def get_whiskey(current_user_token):
     a_user = current_user_token.token
-    whiskey = Whiskey.query.filter_by(whiskey_token=a_user).all()
+    whiskey = Whiskey.query.filter_by(whiskey_token = a_user).all()
     response = whiskeys_schema.dump(whiskey)
     return jsonify(response)
 
